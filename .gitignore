@@ -30,3 +30,7 @@ Thumbs.db
 # Logs and temporary files
 *.log
 *.tmp
+
+# txt, csv, and other data files
+*.txt
+*.csv
