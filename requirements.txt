@@ -1,7 +1,11 @@
---index-url https://pypi.org/simple
 --extra-index-url https://download.pytorch.org/whl/cu126
 
-torch
+torch==2.13.0
+onnxruntime-gpu==1.20.2
 transformers
 sentencepiece
 protobuf
+docling
+chonkie
+setuptools<81
+vietocr==0.3.13

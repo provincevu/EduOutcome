@@ -34,3 +34,4 @@ Thumbs.db
 # txt, csv, and other data files
 *.txt
 *.csv
+*.pdf
