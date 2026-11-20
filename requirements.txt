@@ -9,3 +9,4 @@ docling
 chonkie
 setuptools<81
 vietocr==0.3.13
+sentence-transformers

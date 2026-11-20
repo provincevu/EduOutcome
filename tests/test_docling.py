@@ -102,24 +102,32 @@ def main():
     })
     result = converter.convert(pdf_path)
 
-    print("\n=== Heading levels ===")
-    for item, _ in result.document.iterate_items():
-        if isinstance(item, TitleItem):
-            print(f"TITLE: {item.text}")
-        elif isinstance(item, SectionHeaderItem):
-            print(f"LEVEL {item.level}: {item.text}")
+    output_path = Path(__file__).resolve().parents[1] / "data/processed" / f"{pdf_path.stem}_chunks.txt"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    chunker = HierarchicalChunker()
-    chunks = chunker.chunk(result.document)
-    # Gộp các phần liên tiếp có cùng đường dẫn heading.
-    for i, (headings, group) in enumerate(
-        groupby(chunks, key=lambda chunk: tuple(chunk.meta.headings or [])), start=1
-    ):
-        content = "\n".join(chunk.text for chunk in group)
-        print(f"\n{'=' * 50}\nCHUNK {i}")
-        print("Headings:", list(headings))
-        print("Content:", content)
-        # print("Contextualized:", "\n".join([*headings, content]))
+    with output_path.open("w", encoding="utf-8") as output:
+        def emit(*args):
+            print(*args)
+            print(*args, file=output)
+
+        emit("\n=== Heading levels ===")
+        for item, _ in result.document.iterate_items():
+            if isinstance(item, TitleItem):
+                emit(f"TITLE: {item.text}")
+            elif isinstance(item, SectionHeaderItem):
+                emit(f"LEVEL {item.level}: {item.text}")
+
+        chunker = HierarchicalChunker()
+        chunks = chunker.chunk(result.document)
+        for i, (headings, group) in enumerate(
+            groupby(chunks, key=lambda chunk: tuple(chunk.meta.headings or [])), start=1
+        ):
+            content = "\n".join(chunk.text for chunk in group)
+            emit(f"\n{'=' * 50}\nCHUNK {i}")
+            emit("Headings:", list(headings))
+            emit("Content:", content)
+
+    print(f"\nĐã lưu kết quả vào: {output_path}")
 
 
 if __name__ == "__main__":

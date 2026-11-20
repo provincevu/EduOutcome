@@ -1,0 +1,18 @@
+{
+  "model": "AITeamVN/Vietnamese_Embedding_v2",
+  "max_seq_length": 2048,
+  "chonkie_version": "1.7.0",
+  "options": {
+    "threshold": 0.5,
+    "chunk_size": 2048,
+    "similarity_window": 1,
+    "delim": [
+      ". "
+    ],
+    "include_delim": "prev"
+  },
+  "thresholds": [
+    0.5
+  ],
+  "source": "test_chonkie.py"
+}
