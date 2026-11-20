@@ -13,7 +13,7 @@ embedding_model.model.max_seq_length = 2048
 # Khởi tạo Semantic Chunker
 chunker = SemanticChunker(
     embedding_model=embedding_model,
-    threshold=0.7,
+    threshold=0.9,
     chunk_size=2048,
     similarity_window=1,
     delim=[".\n",],
